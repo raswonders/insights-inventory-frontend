@@ -10,6 +10,11 @@ import initialColumns, {
   type Column,
 } from '../columns/allColumnDefinitions';
 
+export const INITIAL_SORT: { sortBy: SortBy; direction: SortDirection } = {
+  sortBy: 'last_check_in',
+  direction: 'desc',
+};
+
 const FALLBACK_SORT: { sortBy: SortBy; direction: SortDirection } = {
   sortBy: 'display_name',
   direction: 'asc',

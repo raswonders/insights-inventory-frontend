@@ -18,7 +18,7 @@ import {
   InventoryFilters,
   SystemsViewFilters,
 } from './filters/SystemsViewFilters';
-import { useColumns } from './hooks/useColumns';
+import { INITIAL_SORT, useColumns } from './hooks/useColumns';
 import { SetURLSearchParams } from 'react-router-dom';
 import { SystemActionModalsProvider } from './SystemActionModalsContext';
 import { SystemsViewBulkActions } from './SystemsViewBulkActions';
@@ -103,10 +103,7 @@ const SystemsViewInner = ({
   );
 
   const sort = useDataViewSort({
-    initialSort: {
-      direction: 'desc',
-      sortBy: 'last_check_in',
-    } satisfies { direction: SortDirection; sortBy: SortBy },
+    initialSort: INITIAL_SORT,
     defaultDirection: 'asc',
     searchParams: sortSearchParams,
     setSearchParams,
