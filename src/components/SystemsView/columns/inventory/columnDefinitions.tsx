@@ -1,5 +1,4 @@
 import React from 'react';
-import { type RenderableColumn } from '../../hooks/useColumns';
 import { ApiHostGetHostListOrderByEnum as ApiOrderByEnum } from '@redhat-cloud-services/host-inventory-client/ApiHostGetHostList';
 import DisplayName from './cells/DisplayName';
 import Workspace from './cells/Workspace';
@@ -8,8 +7,9 @@ import OperatingSystem from './cells/OperatingSystem';
 import Tags from './cells/Tags';
 import { LastSeenColumnHeader } from '../../../../Utilities/LastSeenColumnHeader';
 import { System } from '../../hooks/useSystemsQuery';
+import type { Column } from '../allColumnDefinitions';
 
-const nameColumn: RenderableColumn = {
+const nameColumn = {
   title: 'Name',
   key: 'name',
   isShownByDefault: true,
@@ -19,9 +19,9 @@ const nameColumn: RenderableColumn = {
   renderCell: (system: System) => (
     <DisplayName key={`name-${system.id}`} system={system} />
   ),
-};
+} satisfies Column;
 
-const workspaceColumn: RenderableColumn = {
+const workspaceColumn = {
   title: 'Workspace',
   key: 'workspace',
   isShownByDefault: true,
@@ -30,9 +30,9 @@ const workspaceColumn: RenderableColumn = {
   renderCell: (system: System) => (
     <Workspace key={`workspace-${system.id}`} system={system} />
   ),
-};
+} satisfies Column;
 
-const tagsColumn: RenderableColumn = {
+const tagsColumn = {
   title: 'Tags',
   key: 'tags',
   isShownByDefault: true,
@@ -40,9 +40,9 @@ const tagsColumn: RenderableColumn = {
   renderCell: (system: System) => (
     <Tags key={`tags-${system.id}`} system={system} />
   ),
-};
+} satisfies Column;
 
-const operatingSystemColumn: RenderableColumn = {
+const operatingSystemColumn = {
   title: 'OS',
   key: 'os',
   isShownByDefault: true,
@@ -51,9 +51,9 @@ const operatingSystemColumn: RenderableColumn = {
   renderCell: (system: System) => (
     <OperatingSystem key={`os-${system.id}`} system={system} />
   ),
-};
+} satisfies Column;
 
-const lastSeenColumn: RenderableColumn = {
+const lastSeenColumn = {
   title: <LastSeenColumnHeader />,
   key: 'last_seen',
   isShownByDefault: true,
@@ -62,12 +62,13 @@ const lastSeenColumn: RenderableColumn = {
   renderCell: (system: System) => (
     <LastSeen key={`lastseen-${system.id}`} system={system} />
   ),
-};
+} satisfies Column;
 
+/** `as const satisfies` keeps a tuple of distinct column types. */
 export default [
   nameColumn,
   workspaceColumn,
   tagsColumn,
   operatingSystemColumn,
   lastSeenColumn,
-];
+] as const satisfies readonly Column[];

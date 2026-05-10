@@ -19,7 +19,7 @@ import {
   SystemsViewFilters,
 } from './filters/SystemsViewFilters';
 import { useColumns } from './hooks/useColumns';
-import { SetURLSearchParams, useSearchParams } from 'react-router-dom';
+import { SetURLSearchParams } from 'react-router-dom';
 import { SystemActionModalsProvider } from './SystemActionModalsContext';
 import { SystemsViewBulkActions } from './SystemsViewBulkActions';
 import {
@@ -29,7 +29,6 @@ import {
 import { useRows, type SystemsViewTableRow } from './hooks/useRows';
 import AccessDenied from '../../Utilities/AccessDenied';
 import './SystemsView.scss';
-import { ApiHostGetHostListOrderByEnum as ApiOrderByEnum } from '@redhat-cloud-services/host-inventory-client/ApiHostGetHostList';
 import { InnerScrollContainer, ISortBy } from '@patternfly/react-table';
 import { ColumnManagementModalProvider } from './ColumnManagementModalContext';
 import {
@@ -45,10 +44,10 @@ import { DEBOUNCE_TIMEOUT_MS } from '../../constants';
 import { normalizeLegacySortSearchParams } from './utils/normalizeLegacySortSearchParams';
 import { SORT_DIR_URL_PARAM, SORT_URL_PARAM } from './constants';
 import useInventoryViewsFeatureFlag from '../../Utilities/useInventoryViewsFeatureFlag';
+import { SortBy } from './columns/allColumnDefinitions';
 
 export type SortDirection = ISortBy['direction'];
-export type SortBy = ApiOrderByEnum | undefined;
-export type onSort = (
+export type OnSort = (
   _event: React.MouseEvent | React.KeyboardEvent | MouseEvent | undefined,
   newSortBy: string,
   newSortDirection: SortDirection,
@@ -106,8 +105,8 @@ const SystemsViewInner = ({
   const sort = useDataViewSort({
     initialSort: {
       direction: 'desc',
-      sortBy: ApiOrderByEnum.LastCheckIn,
-    },
+      sortBy: 'last_check_in',
+    } satisfies { direction: SortDirection; sortBy: SortBy },
     defaultDirection: 'asc',
     searchParams: sortSearchParams,
     setSearchParams,
