@@ -4,10 +4,12 @@ import { System } from '../hooks/useSystemsQuery';
 import { Resolve } from '../../../types/utility-types';
 
 type RenderableColumn = {
+  /** Cell content for a single system row in the Systems table. */
   readonly renderCell: (system: System) => React.ReactNode;
 };
 
 type SortableColumn = {
+  /** Used when this column is the active sort; omit for non-sortable columns. */
   readonly sortBy?: string;
 };
 
