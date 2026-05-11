@@ -19,7 +19,7 @@ const nameColumn = {
   renderCell: (system: System) => (
     <DisplayName key={`name-${system.id}`} system={system} />
   ),
-} satisfies Column;
+};
 
 const workspaceColumn = {
   title: 'Workspace',
@@ -30,7 +30,7 @@ const workspaceColumn = {
   renderCell: (system: System) => (
     <Workspace key={`workspace-${system.id}`} system={system} />
   ),
-} satisfies Column;
+};
 
 const tagsColumn = {
   title: 'Tags',
@@ -40,7 +40,7 @@ const tagsColumn = {
   renderCell: (system: System) => (
     <Tags key={`tags-${system.id}`} system={system} />
   ),
-} satisfies Column;
+};
 
 const operatingSystemColumn = {
   title: 'OS',
@@ -51,7 +51,7 @@ const operatingSystemColumn = {
   renderCell: (system: System) => (
     <OperatingSystem key={`os-${system.id}`} system={system} />
   ),
-} satisfies Column;
+};
 
 const lastSeenColumn = {
   title: <LastSeenColumnHeader />,
@@ -62,9 +62,8 @@ const lastSeenColumn = {
   renderCell: (system: System) => (
     <LastSeen key={`lastseen-${system.id}`} system={system} />
   ),
-} satisfies Column;
+};
 
-/** `as const satisfies` keeps a tuple of distinct column types. */
 export default [
   nameColumn,
   workspaceColumn,

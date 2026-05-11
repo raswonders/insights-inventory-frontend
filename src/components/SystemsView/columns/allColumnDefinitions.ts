@@ -21,11 +21,6 @@ export type Column = Resolve<
  * To add an app: import its `./<appId>/columnDefinitions` default export and append
  * with `...thatAppsColumns` (or insert where the column order should appear).
  */
-const allColumns = [...inventoryColumns];
-
-export type SortBy = Extract<
-  (typeof allColumns)[number],
-  { sortBy: string }
->['sortBy'];
+const allColumns = [...inventoryColumns] as const satisfies readonly Column[];
 
 export default allColumns;

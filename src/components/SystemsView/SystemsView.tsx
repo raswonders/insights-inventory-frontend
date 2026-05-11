@@ -44,7 +44,8 @@ import { DEBOUNCE_TIMEOUT_MS } from '../../constants';
 import { normalizeLegacySortSearchParams } from './utils/normalizeLegacySortSearchParams';
 import { SORT_DIR_URL_PARAM, SORT_URL_PARAM } from './constants';
 import useInventoryViewsFeatureFlag from '../../Utilities/useInventoryViewsFeatureFlag';
-import { SortBy } from './columns/allColumnDefinitions';
+import type { Column } from './columns/allColumnDefinitions';
+import { ApiHostGetHostListOrderByEnum as ApiOrderByEnum } from '@redhat-cloud-services/host-inventory-client/ApiHostGetHostList';
 
 export type SortDirection = ISortBy['direction'];
 export type OnSort = (
@@ -111,7 +112,7 @@ const SystemsViewInner = ({
     directionParam: SORT_DIR_URL_PARAM,
   });
 
-  const sortBy = sort?.sortBy as SortBy;
+  const sortBy = sort?.sortBy as Column['sortBy'];
   const { direction, onSort } = sort;
 
   const isInventoryViewsEnabled = useInventoryViewsFeatureFlag();
@@ -128,7 +129,7 @@ const SystemsViewInner = ({
     perPage: pagination.perPage,
     filters: queryFilters,
     lastSeenCustomRange,
-    sortBy,
+    sortBy: sortBy as ApiOrderByEnum | undefined,
     direction,
   });
 

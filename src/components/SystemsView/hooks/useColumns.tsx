@@ -5,23 +5,26 @@ import type { OnSort, SortDirection } from '../SystemsView';
 import { getSystemsViewColumnMinWidthStyle } from '../utils/columnMinWidths';
 import { STICKY_ACTIONS_HEADER_PROPS } from '../utils/stickyActionsColumn';
 import { STICKY_NAME_HEADER_PROPS } from '../utils/stickyNameColumn';
-import initialColumns, {
-  type SortBy,
-  type Column,
-} from '../columns/allColumnDefinitions';
+import initialColumns, { type Column } from '../columns/allColumnDefinitions';
 
-export const INITIAL_SORT: { sortBy: SortBy; direction: SortDirection } = {
+export const INITIAL_SORT: {
+  sortBy: Column['sortBy'];
+  direction: SortDirection;
+} = {
   sortBy: 'last_check_in',
   direction: 'desc',
 };
 
-const FALLBACK_SORT: { sortBy: SortBy; direction: SortDirection } = {
+const FALLBACK_SORT: {
+  sortBy: Column['sortBy'];
+  direction: SortDirection;
+} = {
   sortBy: 'display_name',
   direction: 'asc',
 };
 
 interface UseColumnParams {
-  sortBy: SortBy;
+  sortBy: Column['sortBy'];
   onSort: OnSort;
   direction: SortDirection;
   isInventoryViewsEnabled: boolean;
@@ -38,7 +41,7 @@ export const useColumns = ({
   );
 
   const fromSortByToIndex = useCallback(
-    (sortBy?: SortBy) =>
+    (sortBy?: Column['sortBy']) =>
       columns
         .filter((col) => col.isShown)
         .findIndex((col) => col.sortBy === sortBy),
